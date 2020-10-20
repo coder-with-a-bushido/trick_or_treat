@@ -47,31 +47,33 @@ class TrickOrTreat extends StatelessWidget {
         children: [
           Image(
             image: AssetImage("images/spooky_bg.jpg"),
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.cover,
           ),
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: RaisedButton(
-                    color: Colors.black,
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Halloween())),
-                    child: Text(
-                      "Trick or Treat",
-                      style: TextStyle(fontSize: 40, color: Colors.white),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: RaisedButton(
+                      color: Colors.black,
+                      onPressed: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Halloween())),
+                      child: Text(
+                        "Trick or Treat",
+                        style: TextStyle(fontSize: 40, color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Image.network(
-                    "https://media.giphy.com/media/h2CfczI1ggcspHZ26z/giphy.gif"),
-              ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Image.network(
+                      "https://media.giphy.com/media/h2CfczI1ggcspHZ26z/giphy.gif"),
+                ],
+              ),
             ),
           ),
         ],
@@ -105,14 +107,17 @@ class Halloween extends StatelessWidget {
     ];
     int i = 0;
     return Scaffold(
+      backgroundColor: Colors.deepOrangeAccent,
       body: Stack(
         children: [
           Container(
             height: height,
             width: width,
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 2, mainAxisSpacing: 2, crossAxisCount: 10),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 2,
+                  maxCrossAxisExtent: 100),
               itemCount: 100 //(height * width) ~/ pow(100, 2)
               ,
               itemBuilder: (context, index) {
@@ -122,34 +127,26 @@ class Halloween extends StatelessWidget {
                   i++;
                 }
                 try {
-                  return Expanded(
-                    child: GridTile(
-                      child: Container(
-                        color: i % 2 == 0
-                            ? Colors.orangeAccent
-                            : Colors.deepOrangeAccent,
-                        child: Center(
-                          child: Text(
-                            str[i],
-                            style: TextStyle(fontSize: 30),
-                          ),
-                        ),
+                  return Container(
+                    color: i % 2 == 0
+                        ? Colors.orangeAccent
+                        : Colors.deepOrangeAccent,
+                    child: Center(
+                      child: Text(
+                        str[i],
+                        style: TextStyle(),
                       ),
                     ),
                   );
                 } catch (e) {
-                  return Expanded(
-                    child: GridTile(
-                      child: Container(
-                        color: i % 2 == 0
-                            ? Colors.orangeAccent
-                            : Colors.deepOrangeAccent,
-                        child: Center(
-                          child: Text(
-                            str[15],
-                            style: TextStyle(fontSize: 30),
-                          ),
-                        ),
+                  return Container(
+                    color: i % 2 == 0
+                        ? Colors.orangeAccent
+                        : Colors.deepOrangeAccent,
+                    child: Center(
+                      child: Text(
+                        str[15],
+                        style: TextStyle(),
                       ),
                     ),
                   );
@@ -158,20 +155,25 @@ class Halloween extends StatelessWidget {
             ),
           ),
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  child: Image.network(
-                      "https://media.giphy.com/media/3oriO7YaU1bnRFVREk/giphy.gif"),
-                ),
-                Container(
-                    color: Colors.white,
-                    child: Text(
-                      "👻Happy Halloween🎃",
-                      style: TextStyle(fontSize: 40),
-                    ))
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Image.network(
+                        "https://media.giphy.com/media/3oriO7YaU1bnRFVREk/giphy.gif"),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                      color: Colors.white,
+                      child: Text(
+                        "👻Happy Halloween🎃",
+                        style: TextStyle(fontSize: 40),
+                      ))
+                ],
+              ),
             ),
           )
         ],
